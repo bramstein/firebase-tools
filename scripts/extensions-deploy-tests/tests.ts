@@ -7,27 +7,31 @@ const FIREBASE_PROJECT = process.env.FBTOOLS_TARGET_PROJECT || "";
 const TEST_SETUP_TIMEOUT_MS = 10000;
 const TEST_TIMEOUT_MS = 600000;
 
-describe("firebase deploy --only extensions", () => {
+describe("firebase deploy --only extensions", function (this) {
+  this.timeout(TEST_TIMEOUT_MS);
+
   let cli: CLIProcess;
+
   before(function (this) {
     this.timeout(TEST_SETUP_TIMEOUT_MS);
-    expect(FIREBASE_PROJECT).to.exist.and.not.be.empty;
-    cli = new CLIProcess("default", __dirname);
+    expect(FIREBASE_PROJECT).should.not.be.empty(
+      "string",
+      "Set process.env.FBTOOLS_TARGET_PROJECT to your test project"
+    );
+    cli = new CLIProcess("deploy", __dirname);
   });
 
   after(() => {
     cli.stop();
   });
 
-  it("should have deployed the expected extensions", async function (this) {
-    this.timeout(TEST_TIMEOUT_MS);
-
+  it("should have deployed the expected extensions", async () => {
     await cli.start(
       "deploy",
       FIREBASE_PROJECT,
       ["--only", "extensions", "--non-interactive", "--force"],
       (data: any) => {
-        if (`${data}`.match(/Deploy complete/)) {
+        if (/Deploy complete/.exec(`${data}`)) {
           return true;
         }
       }
