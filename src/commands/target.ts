@@ -2,7 +2,7 @@ import * as clc from "cli-color";
 
 import { Command } from "../command";
 import { logger } from "../logger";
-import * as requireConfig from "../requireConfig";
+import { requireConfig } from "../requireConfig";
 import * as utils from "../utils";
 
 interface targetMap {
@@ -16,7 +16,7 @@ function logTargets(type: string, targets: targetMap): void {
   }
 }
 
-export default new Command("target [type]")
+export const command = new Command("target [type]")
   .description("display configured deploy targets for the current project")
   .before(requireConfig)
   .action((type, options) => {

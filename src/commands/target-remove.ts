@@ -1,10 +1,10 @@
 import * as clc from "cli-color";
 
 import { Command } from "../command";
-import * as requireConfig from "../requireConfig";
+import { requireConfig } from "../requireConfig";
 import * as utils from "../utils";
 
-export default new Command("target:remove <type> <resource>")
+export const command = new Command("target:remove <type> <resource>")
   .description("remove a resource target")
   .before(requireConfig)
   .action((type, resource, options) => {

@@ -2,11 +2,11 @@ import * as clc from "cli-color";
 
 import { Command } from "../command";
 import { logger } from "../logger";
-import * as requireConfig from "../requireConfig";
+import { requireConfig } from "../requireConfig";
 import * as utils from "../utils";
 import { FirebaseError } from "../error";
 
-export default new Command("target:apply <type> <name> <resources...>")
+export const command = new Command("target:apply <type> <name> <resources...>")
   .description("apply a deploy target to a resource")
   .before(requireConfig)
   .action((type, name, resources, options) => {

@@ -7,7 +7,7 @@ import { previews } from "../../../previews";
 import { Options } from "../../../options";
 import { ensure } from "../../../ensureApiEnabled";
 
-module.exports = async function (setup: any, config: any, options: Options) {
+export async function doSetup(setup: any, config: any, options: Options) {
   logger.info();
   logger.info(
     "A " + clc.bold("functions") + " directory will be created in your project with sample code"
@@ -48,5 +48,5 @@ module.exports = async function (setup: any, config: any, options: Options) {
     default: "javascript",
     choices,
   });
-  return require("./" + language)(setup, config);
-};
+  return require("./" + language).setup(setup, config);
+}

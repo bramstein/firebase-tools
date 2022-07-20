@@ -61,6 +61,7 @@ export type HostingHeaders = HostingSource & {
 
 type HostingBase = {
   public?: string;
+  source?: string;
   ignore?: string[];
   appAssociation?: string;
   cleanUrls?: boolean;
@@ -104,12 +105,14 @@ export type FirestoreConfig = {
   indexes?: string;
 } & Deployable;
 
-export type FunctionsConfig = {
-  // TODO: Add types for "backend"
+export type FunctionConfig = {
   source?: string;
   ignore?: string[];
   runtime?: CloudFunctionRuntimes;
+  codebase?: string;
 } & Deployable;
+
+export type FunctionsConfig = FunctionConfig | FunctionConfig[];
 
 export type HostingConfig = HostingSingle | HostingMultiple;
 
